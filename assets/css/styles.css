@@ -1,0 +1,12 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.hero {
+    background: url('../images/bg-image.jpg') no-repeat center center/cover;
+    padding: 80px 0;
+}
+
+.btn-light {
+    font-weight: bold;
+}
