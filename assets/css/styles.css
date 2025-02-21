@@ -1,12 +1,115 @@
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+header {
+    background: #1e1e2f;
+    color: white;
+    padding: 20px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .hero {
-    background: url('../images/bg-image.jpg') no-repeat center center/cover;
+    background: url('assets/hero-bg.jpg') center/cover no-repeat;
     padding: 80px 0;
+    color: white;
 }
 
-.btn-light {
+.hero .cta-button {
+    display: inline-block;
+    background: #ff6600;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
     font-weight: bold;
+    border-radius: 5px;
+}
+
+.features {
+    background: white;
+    padding: 50px 0;
+}
+
+.feature-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.feature {
+    background: #1e1e2f;
+    color: white;
+    padding: 20px;
+    margin: 10px;
+    width: 250px;
+    border-radius: 5px;
+}
+
+.roadmap {
+    background: #ddd;
+    padding: 50px 0;
+}
+
+.roadmap ul {
+    list-style: none;
+    padding: 0;
+}
+
+.roadmap li {
+    background: white;
+    padding: 10px;
+    margin: 10px;
+    border-left: 5px solid #ff6600;
+}
+
+.contact {
+    background: #1e1e2f;
+    color: white;
+    padding: 50px 0;
+}
+
+.contact .cta-button {
+    background: #ff6600;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+footer {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
 }
