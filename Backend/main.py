@@ -51,10 +51,10 @@ def admin_panel(request: Request, db: Session = Depends(get_db)):
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Allow requests from frontend
+    allow_origins=["*"],  # ✅ Allow all origins (Frontend can access)
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods (POST, GET, etc.)
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],  # ✅ Allow all HTTP methods (POST, GET, OPTIONS)
+    allow_headers=["*"],  # ✅ Allow all headers
 )
 
 
