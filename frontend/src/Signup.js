@@ -1,7 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 import "./Signup.css";
-import background from "./assets/background.jpg"; // ✅ Import background image
+import background from "./assets/background.jpg"; 
+
+
+const API_BASE_URL = "https://tradequestbackend.up.railway.app/"; 
 
 const Signup = () => {
   const [formData, setFormData] = useState({ full_name: "", email: "", age: "" });
@@ -14,7 +17,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://127.0.0.1:8000/signup", formData, {
+      const response = await axios.post(`${API_BASE_URL}/signup`, formData), {
         headers: { "Content-Type": "application/json" },
       });
       setMessage(response.data.message);
