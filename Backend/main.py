@@ -7,6 +7,8 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
+import os
+import uvicorn
 
 app = FastAPI()
 
@@ -54,3 +56,8 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all HTTP methods (POST, GET, etc.)
     allow_headers=["*"],  # Allow all headers
 )
+
+
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8000))  # Use Railway's assigned port or default to 8000
+    uvicorn.run(app, host="0.0.0.0", port=port)
