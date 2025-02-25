@@ -262,3 +262,75 @@ nav {
 .close:hover {
     color: red;
 }
+
+.contact-container {
+    background: #1a1a1a;
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    text-align: left;
+}
+
+.contact-container h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.contact-container p {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 20px;
+}
+
+.contact-container label {
+    font-weight: bold;
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.contact-container input,
+.contact-container textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background: #222;
+    color: white;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.contact-container input:focus,
+.contact-container textarea:focus {
+    border-color: #ffcc00;
+    outline: none;
+}
+
+.contact-container .yellow-button {
+    width: 100%;
+    display: block;
+    padding: 12px;
+    font-size: 16px;
+    background: #ffcc00;
+    color: black;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.3s ease;
+}
+
+.contact-container .yellow-button:hover {
+    background: #e6b800;
+}
+
+#contact-response {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+    color: #ffcc00;
+}
