@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from datetime import datetime
 import os
 
-# Load database URL from environment variables
+# Load database URL from environment
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Database setup
@@ -12,13 +12,14 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-# ✅ Fix Signup Model (Removed message field)
+# ✅ Fix: Restore Signup Model & Add `age`
 class Signup(Base):
     __tablename__ = "signups"
 
     id = Column(Integer, primary_key=True, index=True)
     full_name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
+    age = Column(Integer, nullable=False)  # ✅ Restored age field
     created_at = Column(DateTime, default=datetime.utcnow)
 
 # ✅ Contact Model (Stores user messages)
