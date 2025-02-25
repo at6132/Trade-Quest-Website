@@ -1,44 +1,13 @@
-from fastapi import FastAPI, HTTPException, Depends, Request
+from fastapi import FastAPI, HTTPException, Depends
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine, Base, Signup
 from pydantic import BaseModel, EmailStr
-from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
-import os
 
+# Initialize FastAPI app
 app = FastAPI()
 
-# Load templates
-templates = Jinja2Templates(directory="templates")
-
-# Mount static files
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-# Dependency to get DB session
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-# Contact Form Request Model
-class ContactRequest(BaseModel):
-    full_name: str
-    email: EmailStr
-    message: str
-
-# Contact Form Endpoint (Saves messages to DB)
-@app.post("/contact")
-def submit_contact(request: ContactRequest, db: Session = Depends(get_db)):
-    new_contact = Signup(full_name=request.full_name, email=request.email, message=request.message)
-    db.add(new_contact)
-    db.commit()
-    return {"message": "Contact form submitted successfully!"}
-
-# Enable CORS
+# CORS Middleware for frontend access
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -46,3 +15,42 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Dependency to get database session
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+# Pydantic Model for Signup Request
+class SignupRequest(BaseModel):
+    full_name: str
+    email: EmailStr
+
+# Pydantic Model for Contact Request
+class ContactRequest(BaseModel):
+    full_name: str
+    email: EmailStr
+    message: str
+
+# ✅ Signup Endpoint
+@app.post("/signup")
+def signup(request: SignupRequest, db: Session = Depends(get_db)):
+    existing_user = db.query(Signup).filter(Signup.email == request.email).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already registered.")
+
+    new_user = Signup(full_name=request.full_name, email=request.email)
+    db.add(new_user)
+    db.commit()
+    return {"message": "Signup successful!"}
+
+# ✅ Contact Form Endpoint
+@app.post("/contact")
+def submit_contact(request: ContactRequest, db: Session = Depends(get_db)):
+    new_contact = Signup(full_name=request.full_name, email=request.email, message=request.message)
+    db.add(new_contact)
+    db.commit()
+    return {"message": "Contact form submitted successfully!"}

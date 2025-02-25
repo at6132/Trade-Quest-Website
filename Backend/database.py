@@ -4,28 +4,24 @@ from sqlalchemy.orm import sessionmaker
 from datetime import datetime
 import os
 
-# Load DATABASE_URL from environment variables
+# Load database URL from environment
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-# Create the database engine
+# Database setup
 engine = create_engine(DATABASE_URL)
-
-# Create session
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# Define Base
 Base = declarative_base()
 
-# Define Signup model
+# ✅ Signup Model (Now also used for Contact Submissions)
 class Signup(Base):
     __tablename__ = "signups"
 
     id = Column(Integer, primary_key=True, index=True)
     full_name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
-    message = Column(String, nullable=True)
+    message = Column(String, nullable=True)  # Contact messages go here
     created_at = Column(DateTime, default=datetime.utcnow)
 
-# Create tables only if they don’t exist
+# Create tables
 if __name__ == "__main__":
     Base.metadata.create_all(bind=engine)
