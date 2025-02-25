@@ -1,13 +1,13 @@
 from fastapi import FastAPI, HTTPException, Depends
 from sqlalchemy.orm import Session
-from database import SessionLocal, engine, Base, Signup
+from database import SessionLocal, engine, Base, Signup, ContactSubmission
 from pydantic import BaseModel, EmailStr
 from fastapi.middleware.cors import CORSMiddleware
 
 # Initialize FastAPI app
 app = FastAPI()
 
-# CORS Middleware for frontend access
+# CORS Middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -16,7 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Dependency to get database session
+# Dependency for database session
 def get_db():
     db = SessionLocal()
     try:
@@ -24,18 +24,17 @@ def get_db():
     finally:
         db.close()
 
-# Pydantic Model for Signup Request
+# Pydantic Models
 class SignupRequest(BaseModel):
     full_name: str
     email: EmailStr
 
-# Pydantic Model for Contact Request
 class ContactRequest(BaseModel):
     full_name: str
     email: EmailStr
     message: str
 
-# ✅ Signup Endpoint
+# ✅ Signup Endpoint (Fixed)
 @app.post("/signup")
 def signup(request: SignupRequest, db: Session = Depends(get_db)):
     existing_user = db.query(Signup).filter(Signup.email == request.email).first()
@@ -47,10 +46,10 @@ def signup(request: SignupRequest, db: Session = Depends(get_db)):
     db.commit()
     return {"message": "Signup successful!"}
 
-# ✅ Contact Form Endpoint
+# ✅ Contact Form Endpoint (Stores in ContactSubmission Table)
 @app.post("/contact")
 def submit_contact(request: ContactRequest, db: Session = Depends(get_db)):
-    new_contact = Signup(full_name=request.full_name, email=request.email, message=request.message)
+    new_contact = ContactSubmission(full_name=request.full_name, email=request.email, message=request.message)
     db.add(new_contact)
     db.commit()
     return {"message": "Contact form submitted successfully!"}
