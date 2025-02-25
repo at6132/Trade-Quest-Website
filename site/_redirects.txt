@@ -1,0 +1,5 @@
+/signup         https://tradequestfrontend.up.railway.app/signup      200
+/contact        /contact.html                                         200
+/features       /features.html                                        200
+/roadmap        /roadmap.html                                         200
+/*              /index.html                                           200
