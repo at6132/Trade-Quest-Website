@@ -1,37 +1,61 @@
-from sqlalchemy import create_engine, Column, Integer, String, DateTime
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from datetime import datetime
-import os
+from fastapi import FastAPI, HTTPException, Depends
+from sqlalchemy.orm import Session
+from database import SessionLocal, engine, Base, Signup, ContactSubmission
+from pydantic import BaseModel, EmailStr
+from fastapi.middleware.cors import CORSMiddleware
 
-# Load database URL from environment
-DATABASE_URL = os.getenv("DATABASE_URL")
+# ✅ Initialize FastAPI app
+app = FastAPI()
 
-# Database setup
-engine = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+# ✅ CORS Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-# ✅ Fix: Restore Signup Model & Add `age`
-class Signup(Base):
-    __tablename__ = "signups"
+# ✅ Dependency for database session
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
-    id = Column(Integer, primary_key=True, index=True)
-    full_name = Column(String, nullable=False)
-    email = Column(String, unique=True, nullable=False)
-    age = Column(Integer, nullable=False)  # ✅ Restored age field
-    created_at = Column(DateTime, default=datetime.utcnow)
+# ✅ Pydantic Models
+class SignupRequest(BaseModel):
+    full_name: str
+    email: EmailStr
+    age: int
 
-# ✅ Contact Model (Stores user messages)
-class ContactSubmission(Base):
-    __tablename__ = "contact_submissions"
+class ContactRequest(BaseModel):
+    full_name: str
+    email: EmailStr
+    message: str
 
-    id = Column(Integer, primary_key=True, index=True)
-    full_name = Column(String, nullable=False)
-    email = Column(String, nullable=False)
-    message = Column(String, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
+# ✅ Signup Endpoint
+@app.post("/signup")
+def signup(request: SignupRequest, db: Session = Depends(get_db)):
+    existing_user = db.query(Signup).filter(Signup.email == request.email).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already registered.")
 
-# ✅ Create Tables (Force recreate if schema changed)
+    new_user = Signup(full_name=request.full_name, email=request.email, age=request.age)
+    db.add(new_user)
+    db.commit()
+    return {"message": "Signup successful!"}
+
+# ✅ Contact Form Endpoint
+@app.post("/contact")
+def submit_contact(request: ContactRequest, db: Session = Depends(get_db)):
+    new_contact = ContactSubmission(full_name=request.full_name, email=request.email, message=request.message)
+    db.add(new_contact)
+    db.commit()
+    return {"message": "Contact form submitted successfully!"}
+
+# ✅ Ensure the script only runs when executed directly
 if __name__ == "__main__":
-    Base.metadata.create_all(bind=engine)
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
