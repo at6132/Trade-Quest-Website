@@ -1,0 +1,264 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Body */
+body {
+    background-color: #0e0e0e;
+    color: #ffffff;
+    text-align: center;
+}
+
+/* Navigation Bar */
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+/* Ensure content starts below the nav bar */
+main {
+    margin-top: 80px;
+}
+
+/* Background */
+.hero {
+    background: url('../images/background.png') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Navbar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffcc00;
+}
+
+.join-btn {
+    background: #ffcc00;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 16px;
+    transition: 0.3s ease;
+}
+
+.join-btn:hover {
+    background: #e6b800;
+}
+
+/* Hero Section */
+.hero-content {
+    position: relative;
+    max-width: 600px;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.hero-content p {
+    font-size: 18px;
+    font-weight: 400;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+.cta-btn {
+    padding: 12px 25px;
+    background: #ffcc00;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    transition: 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0px 5px 15px rgba(255, 204, 0, 0.3);
+}
+
+.cta-btn:hover {
+    background: #e6b800;
+    transform: scale(1.05);
+}
+
+/* Features */
+.features {
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.features h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 10px;
+    transition: 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.feature-card:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+/* Roadmap */
+.roadmap {
+    padding: 60px 10%;
+    background: #1a1a1a;
+}
+
+.roadmap h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.roadmap ul {
+    list-style: none;
+}
+
+.roadmap li {
+    font-size: 18px;
+    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px;
+    border-radius: 5px;
+}
+
+/* Contact */
+.contact {
+    padding: 60px 10%;
+}
+
+.contact h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.contact-btn {
+    background: #ffcc00;
+    padding: 12px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s ease;
+    box-shadow: 0px 5px 10px rgba(255, 204, 0, 0.3);
+}
+
+.contact-btn:hover {
+    background: #e6b800;
+    transform: scale(1.1);
+}
+
+/* Modal Pop-Up Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #222;
+    color: white;
+    padding: 30px;
+    width: 50%;
+    max-width: 800px;
+    text-align: center;
+    border-radius: 8px;
+    position: relative;
+}
+
+.modal-content h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.modal-content ul {
+    text-align: left;
+    margin: 10px 0;
+}
+
+.modal-content ul li {
+    font-size: 18px;
+    margin: 8px 0;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 25px;
+    cursor: pointer;
+    color: #ffcc00;
+}
+
+.close:hover {
+    color: red;
+}

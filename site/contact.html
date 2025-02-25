@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | TradeQuest</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script defer src="assets/js/contact.js"></script>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html"><img src="assets/images/logo.png" alt="TradeQuest Logo"></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="roadmap.html">Roadmap</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="https://tradequestfrontend.up.railway.app/signup" class="join-btn">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="contact">
+        <h1>📩 Get in Touch</h1>
+        <p>Have questions? Want to partner with us? Fill out the form, and we'll get back to you!</p>
+
+        <form id="contact-form">
+            <input type="text" id="name" name="name" placeholder="Full Name" required>
+            <input type="email" id="email" name="email" placeholder="Email Address" required>
+            <textarea id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
+            <button type="submit" class="yellow-button">Send Message</button>
+        </form>
+
+        <p id="contact-response" class="hidden"></p>
+    </section>
+
+    <footer>
+        <p>© 2025 TradeQuest. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

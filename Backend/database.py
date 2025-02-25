@@ -2,6 +2,8 @@ import os
 from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.orm import sessionmaker, declarative_base
 from datetime import datetime
+from sqlalchemy import Column, Integer, String, Text
+from database import Base
 
 # ✅ Get DATABASE_URL from Railway environment variables
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -33,6 +35,14 @@ class Signup(Base):
 # ✅ Create all tables
 def init_db():
     Base.metadata.create_all(bind=engine)
+    
+class ContactSubmission(Base):
+    __tablename__ = "contact_submissions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    email = Column(String, unique=False, nullable=False)
+    message = Column(Text, nullable=False)
 
 # ✅ Initialize database tables when script runs
 init_db()
